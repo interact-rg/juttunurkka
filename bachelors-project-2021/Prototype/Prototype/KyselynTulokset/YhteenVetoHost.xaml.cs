@@ -47,7 +47,7 @@ namespace Prototype
 			foreach (var item in Main.GetInstance().host.data.GetEmojiResults().OrderByDescending(item => item.Value))
 			{
                 sorted.Add(item.Key, item.Value);
-                count += item.Value;
+                count += item.Value; 
             }
 
             foreach (int key in sorted.Keys)
@@ -75,7 +75,7 @@ namespace Prototype
         {
             //Sulkee kyselyn kaikilta osallistujilta
 
-            var res = await DisplayAlert("Oletko varma että tahdot sulkea kyselyn?", "", "Kyllä", "Ei");
+            var res = await DisplayAlert("Oletko varma että tahdot sulkea juttunurkan?", "", "Kyllä", "Ei");
 
             if (res == true)
             {

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using CommunityToolkit.Maui;
+using Microsoft.Extensions.Logging;
 
 namespace Prototype;
 
@@ -8,12 +9,16 @@ public static class MauiProgramExtensions
 	{
 		builder
 			.UseMauiApp<App>()
-			.ConfigureFonts(fonts =>
+            .UseMauiCommunityToolkit()
+            .ConfigureFonts(fonts =>
 			{
 				fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
 				fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("BebasNeue-Regular.ttf", "BebasNeue");
 				fonts.AddFont("Roboto-Medium.ttf", "RobotoMedium");
+				fonts.AddFont("LINESeedJP-Regular.ttf", "LineSeedRegular");
+				fonts.AddFont("LINESeedJP-Thin.ttf", "LineSeedThin");
+				fonts.AddFont("LINESeedJP-Bold.ttf", "LineSeedBold");
             });
 
 #if DEBUG

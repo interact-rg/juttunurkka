@@ -3,6 +3,7 @@
 Copyright 2021 Emma Kemppainen, Jesse Huttunen, Tanja Kultala, Niklas Arjasmaa
           2022 Pauliina Pihlajaniemi, Viola Niemi, Niina Nikki, Juho Tyni, Aino Reinikainen, Essi Kinnunen
           2025 Emmi Poutanen
+          2026 Matias Meriläinen, Mimosa Joenväärä, Aurora Kansanoja
 
 This file is part of "Juttunurkka".
 
@@ -18,96 +19,105 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with Juttunurkka.  If not, see <https://www.gnu.org/licenses/>.
 -->
+
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Prototype.AktiviteettiäänestysTulokset"
-             Title="Juttunurkka"
-             BackgroundColor="#FFEA7F">
+             BackgroundColor="Transparent"
+             NavigationPage.HasNavigationBar="False">
 
-    <ContentPage.Content>
-        <StackLayout>
+    <AbsoluteLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand" Padding="0">
 
-            <Label Text="TULOKSET"
-               FontSize="40"
-               FontAttributes="Bold"
-               TextColor="Black"
-               FontFamily="BebasNeue"
-               HorizontalOptions="Center"
-               Margin="0,80,0,50"/>
+        <Image Source="background3.png"
+               Aspect="AspectFill"
+               HorizontalOptions="Fill"
+               VerticalOptions="Fill"
+               AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+               AbsoluteLayout.LayoutFlags="All" />
 
-            <CollectionView ItemsSource="{Binding Results}"
-                HorizontalOptions="Center">
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" ItemSpacing="0"/>
-                </CollectionView.ItemsLayout>
+        <Grid RowDefinitions="Auto,*,Auto"
+              Padding="24,60,24,30"
+              RowSpacing="20"
+              AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+              AbsoluteLayout.LayoutFlags="All">
 
+            <!--Teksti-->
+            <Label Grid.Row="0"
+                   Text="TULOKSET"
+                   FontFamily="LineSeedBold"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   FontSize="38"
+                   FontAttributes="Bold"
+                   TextColor="Black" />
+
+            <!--Tulokset pylväinä-->
+            <CollectionView Grid.Row="1"
+                            ItemsSource="{Binding Results}"
+                            SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout WidthRequest="100"
-                            VerticalOptions="EndAndExpand"
-                            HorizontalOptions="Center"
-                            Spacing="0">
+                        <Frame Padding="16"
+                               Margin="0,8,0,8"
+                               CornerRadius="16"
+                               BackgroundColor="#bfd3c1"
+                               BorderColor="Transparent"
+                               HasShadow="False">
 
-                            <!-- Emoji/icon -->
-                            <Image Source="{Binding Image}" HeightRequest="80" HorizontalOptions="Center"/>
-                            
-                            <!-- Bar container: fills vertical space -->
-                            <Grid HeightRequest="200" VerticalOptions="FillAndExpand">
-                                <Frame VerticalOptions="End" 
-                                    HeightRequest="{Binding Scale}" 
-                                    WidthRequest="60"
-                                    BackgroundColor="#FEBA4F"
-                                    CornerRadius="5"
-                                    Padding="0"
-                                    HasShadow="False">
-                                    <Label Text="{Binding Amount}" 
-                                        TextColor="Black" 
-                                        FontSize="30"
-                                        FontAttributes="Bold"
-                                        HorizontalOptions="Center"
-                                        VerticalOptions="Center"/>
+                            <Grid ColumnDefinitions="80,*,Auto"
+                                  ColumnSpacing="16"
+                                  VerticalOptions="Center">
+
+                                <Image Grid.Column="0"
+                                       Source="{Binding Image}"
+                                       HeightRequest="64"
+                                       WidthRequest="64"
+                                       Aspect="AspectFit"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" />
+
+                                <Label Grid.Column="1"
+                                       Text="{Binding Title}"
+                                       VerticalOptions="Center"
+                                       TextColor="Black"
+                                       FontFamily="LineSeedBold"
+                                       FontSize="20"
+                                       LineBreakMode="WordWrap" />
+
+                                <Frame Grid.Column="2"
+                                       BackgroundColor="#a0baa3"
+                                       CornerRadius="12"
+                                       Padding="18,10"
+                                       HasShadow="False"
+                                       VerticalOptions="Center">
+
+                                    <Label Text="{Binding Amount}"
+                                           TextColor="Black"
+                                           FontFamily="LineSeedBold"
+                                           FontSize="22"
+                                           HorizontalOptions="Center"
+                                           VerticalOptions="Center" />
                                 </Frame>
+
                             </Grid>
-
-                            <BoxView HeightRequest="8"
-                                 BackgroundColor="#C381FD"
-                                 VerticalOptions="End"
-                                 Margin="0,0,0,25"
-                                 HorizontalOptions="FillAndExpand"
-                                 />
-
-                            <!-- Option label -->
-                            <Label Text="{Binding Title}"
-                                FontSize="16"
-                                HorizontalOptions="Center"
-                                HorizontalTextAlignment="Center"
-                                LineBreakMode="WordWrap"
-                                WidthRequest="80"
-                                FontAttributes="Bold"
-                                TextColor="Black"/>
-                        </StackLayout>
+                        </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-
-            <AbsoluteLayout Margin="20"  VerticalOptions ="EndAndExpand" HorizontalOptions="CenterAndExpand">
-                <Button Text="Sulje huone"
-                     Clicked="SuljeClicked" 
-                     CornerRadius="10"
-                     HorizontalOptions="Center"
-                     FontSize="22"
-                     TextColor="Black"
-                     FontFamily="RobotoMedium"
-                     FontAttributes="Bold"
-                     BorderColor="Transparent"
-                     BackgroundColor="#FEBA4F"
-                     HeightRequest="80"
-                     WidthRequest="270"/>
-            </AbsoluteLayout>
-
-
-        </StackLayout>
-    </ContentPage.Content>
-
+        
+            <!--Sulje juttunurkka-nappi-->
+            <Button Grid.Row="2"
+                    Text="SULJE JUTTUNURKKA"
+                    Clicked="SuljeClicked"
+                    BackgroundColor="#bfd3c1"
+                    FontFamily="LineSeedBold"
+                    TextColor="Black"
+                    FontSize="22"
+                    FontAttributes="Bold"
+                    CornerRadius="16"
+                    BorderColor="Transparent"
+                    HeightRequest="86"
+                    HorizontalOptions="Fill" />
+        </Grid>
+    </AbsoluteLayout>
 </ContentPage>

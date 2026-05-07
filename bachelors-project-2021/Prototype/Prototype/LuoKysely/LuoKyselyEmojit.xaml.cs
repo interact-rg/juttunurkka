@@ -2,7 +2,7 @@
 /*
 Copyright 2021 Emma Kemppainen, Jesse Huttunen, Tanja Kultala, Niklas Arjasmaa
           2022 Pauliina Pihlajaniemi, Viola Niemi, Niina Nikki, Juho Tyni, Aino Reinikainen, Essi Kinnunen
-
+2026 Matias Meriläinen
 This file is part of "Juttunurkka".
 
 Juttunurkka is free software: you can redistribute it and/or modify
@@ -44,7 +44,9 @@ namespace Prototype
             public bool IsPositive { get; set; } = false;
 		}
 
-       
+        private const string onBoardingShownKey2 = "onBoardingShownKey2";
+
+
 
         public LuoKyselyEmojit()
         {
@@ -165,7 +167,12 @@ namespace Prototype
                 {
                     await Navigation.PushAsync(new LuoKyselyToimenpiteetItkunauru());
 
-                }         
+                }
+                else if (name == "OmaEmoji")
+                {
+                    await Navigation.PushAsync(new LuoKyselyToimenpiteetOmaEmoji());
+
+                }
                 else
                 {
                     await Navigation.PushAsync(new LuoKyselyLopetus());
@@ -191,6 +198,23 @@ namespace Prototype
             }
 
             return false;
+        }
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            if (!Preferences.Get(onBoardingShownKey2, false))
+            {
+                OnBoardingBox2.IsVisible = true;
+
+                Preferences.Set(onBoardingShownKey2, true);
+            }
+        }
+
+        private void CloseOnBoardingClicked(object sender, EventArgs e)
+        {
+            OnBoardingBox2.IsVisible = false;
         }
 
     }
